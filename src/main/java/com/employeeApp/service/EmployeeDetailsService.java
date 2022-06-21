@@ -8,7 +8,7 @@ import com.employeeApp.payload.EmployeeDetailsDto;
 public interface EmployeeDetailsService 
 {
 	//add employeeDetails
-	public EmployeeDetailsDto addemployeeDetails(EmployeeDetailsDto employee,int departmentId);
+	public EmployeeDetailsDto addemployeeDetails(EmployeeDetailsDto employee,int departmentId,int projectId);
 	
 	//get all employee details 
 	public List <EmployeeDetailsDto> getAllEmployeeDetails();
@@ -24,6 +24,9 @@ public interface EmployeeDetailsService
 	
 	//get all employee by department Id
 	public List<EmployeeDetailsDto> getAllEmployeeByDept(int departmentId);
+	
+	//get all employee by project Id
+	public List<EmployeeDetailsDto> getAllEmployeeByProject(int projectId);
 	
 		
 	

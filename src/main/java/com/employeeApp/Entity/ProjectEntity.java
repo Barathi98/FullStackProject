@@ -6,13 +6,18 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,12 +47,15 @@ public class ProjectEntity
   @Size(min=4,max=20)
   private String projectLeadName;
   
-  @Column
-  private int TeamSize;
+//  @Column
+//  @NotNull
+//  private int TeamSize;
   
   @ManyToOne
+//  @JsonBackReference
   private DepartmentEntity department;
   
+//  @JsonManagedReference
   @OneToMany(cascade = CascadeType.ALL)
-  private List<EmployeeDetailsEntity> employee=new ArrayList<>();
+  private List<EmployeeDetailsEntity> employeeDetails=new ArrayList<EmployeeDetailsEntity>();
   }

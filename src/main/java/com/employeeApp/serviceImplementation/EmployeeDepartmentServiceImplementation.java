@@ -3,12 +3,16 @@ package com.employeeApp.serviceImplementation;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.employeeApp.Entity.AdminEntity;
 import com.employeeApp.Entity.DepartmentEntity;
 import com.employeeApp.exception.ResourceNotFoundException;
+import com.employeeApp.payload.AdminDto;
 import com.employeeApp.payload.EmployeeDepartmentDto;
+import com.employeeApp.repository.AdminRepository;
 import com.employeeApp.repository.EmployeeDepartmentRepo;
 import com.employeeApp.service.EmployeeDepartmentService;
 
@@ -16,19 +20,35 @@ import com.employeeApp.service.EmployeeDepartmentService;
 public class EmployeeDepartmentServiceImplementation implements EmployeeDepartmentService {
 	@Autowired
 	private EmployeeDepartmentRepo employeeDeptRepository;
+	
+	@Autowired
+	private AdminRepository adminRepository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Override
-	public EmployeeDepartmentDto createEmployeeDept(EmployeeDepartmentDto department) {
-		DepartmentEntity deptEntity = this.departmentDtoToEntity(department);
-		DepartmentEntity savedDepartment = this.employeeDeptRepository.save(deptEntity);
+	public EmployeeDepartmentDto createEmployeeDept(EmployeeDepartmentDto departmentDto,int adminId) {
+		AdminEntity adminEntity=this.adminRepository.findById(adminId).orElseThrow(
+				()->new ResourceNotFoundException("Admin", "AdminId", adminId)); 
+	
+		departmentDto.setAdmin(this.modelMapper.map(adminEntity, AdminDto.class));
+//		DepartmentEntity deptEntity = this.departmentDtoToEntity(departmentDto);
+		
+//		adminEntity.getDepartment().add(deptEntity);
+//		deptEntity.setAdmin(adminEntity);
+		//departmentDto.setAdmin(this.modelMapper.map(adminEntity, AdminDto.class));
+		DepartmentEntity savedDepartment = this.employeeDeptRepository.save(this.modelMapper.map(departmentDto, DepartmentEntity.class));
 		return this.departmentEntityToDto(savedDepartment);
 	}
 
 	@Override
 	public List<EmployeeDepartmentDto> getallDepartments() {
 		List<DepartmentEntity> departmentList = this.employeeDeptRepository.findAll();
+		
+		System.out.println("List=================="+departmentList);
 		List<EmployeeDepartmentDto> deptDtoList = departmentList.stream()
-				.map(departments -> this.departmentEntityToDto(departments)).collect(Collectors.toList());
+				.map(departments -> this.modelMapper.map(departmentList, EmployeeDepartmentDto.class)).collect(Collectors.toList());
 		return deptDtoList;
 	}
 

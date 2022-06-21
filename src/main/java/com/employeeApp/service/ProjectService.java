@@ -15,4 +15,8 @@ public interface ProjectService
   public ProjectDto updateProjectById(ProjectDto projectDto,int projectId);
   
   public void deleteProjectById(int projectId);
+  
+  public List <ProjectDto> getProjectByDepartment(int departmentId);
+
+
 }

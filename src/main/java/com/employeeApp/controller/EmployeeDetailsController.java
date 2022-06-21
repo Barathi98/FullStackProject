@@ -29,13 +29,13 @@ public class EmployeeDetailsController
 	@Autowired
 	EmployeeDetailsService employeeDetailsService;
 	
-	@PostMapping("/department/{departmentId}/employeeDetails")
+	@PostMapping("/department/{departmentId}/project/{projectId}/employeeDetails")
 	public ResponseEntity<EmployeeDetailsDto> addEmployeeDetails(@Valid @PathVariable int departmentId,
-			@RequestBody EmployeeDetailsDto employee)
+	 @PathVariable int projectId,@RequestBody EmployeeDetailsDto employee)
 	{
 		//System.out.println("this is departmentId " +departmentId+" this is employeeData "+ employee );
 		EmployeeDetailsDto addedEmployeeDetails=
-				this.employeeDetailsService.addemployeeDetails(employee, departmentId);
+				this.employeeDetailsService.addemployeeDetails(employee, departmentId,projectId);
 		return new ResponseEntity<EmployeeDetailsDto>(addedEmployeeDetails,HttpStatus.CREATED);
 		
 	}
@@ -75,14 +75,21 @@ public class EmployeeDetailsController
 		return new ResponseEntity<ApiResponse>(deletedEmployeeDetails,HttpStatus.OK);
 	}
 	
-@GetMapping("/employeeDetail/{departmentId}")
-public ResponseEntity<List<EmployeeDetailsDto>>getAllEmployeeByDept(@PathVariable int departmentId)
+@GetMapping("/employeeDetail/department/{departmentId}")
+public ResponseEntity<List<EmployeeDetailsDto>> getAllEmployeeByDept(@PathVariable int departmentId)
 {
 	List<EmployeeDetailsDto> getAllEmployeeByDept=this.employeeDetailsService.getAllEmployeeByDept(departmentId);
 	return new ResponseEntity<List<EmployeeDetailsDto>>(getAllEmployeeByDept,HttpStatus.OK);
 	
 }
+
+@GetMapping("/employeeDetail/project/{projectId}")
+public ResponseEntity<List<EmployeeDetailsDto>> getAllEmployeeByProject(@PathVariable int projectId)
+{
+	List<EmployeeDetailsDto> getAllEmployeeByProject=this.employeeDetailsService.getAllEmployeeByProject(projectId);
+	return new ResponseEntity<List<EmployeeDetailsDto>>(getAllEmployeeByProject,HttpStatus.OK);
 	
+}
 	
 	
 	

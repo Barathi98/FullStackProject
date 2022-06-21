@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,15 +22,17 @@ import com.employeeApp.payload.EmployeeDepartmentDto;
 import com.employeeApp.service.EmployeeDepartmentService;
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class DepartmentController 
 {
   @Autowired
   EmployeeDepartmentService employeeDeptService;
 
-@PostMapping("/department")
-public ResponseEntity<EmployeeDepartmentDto> createDepartment(@Valid @RequestBody EmployeeDepartmentDto department)
+@PostMapping("/department/{adminId}")
+public ResponseEntity<EmployeeDepartmentDto> createDepartment(@Valid @RequestBody EmployeeDepartmentDto department,
+		@PathVariable int adminId)
 {
-	EmployeeDepartmentDto createDept=this.employeeDeptService.createEmployeeDept(department);
+	EmployeeDepartmentDto createDept=this.employeeDeptService.createEmployeeDept(department,adminId);
 	return new ResponseEntity<EmployeeDepartmentDto>(createDept,HttpStatus.CREATED);
 	
 }
@@ -38,6 +41,7 @@ public ResponseEntity<EmployeeDepartmentDto> createDepartment(@Valid @RequestBod
 public ResponseEntity<List <EmployeeDepartmentDto>> getDepartments() 
 {
 	List<EmployeeDepartmentDto> allDepartments=this.employeeDeptService.getallDepartments();
+	//System.out.println(allDepartments.g);
 	return new ResponseEntity<List<EmployeeDepartmentDto>> (allDepartments,HttpStatus.OK);
 	
 }

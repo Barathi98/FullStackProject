@@ -7,7 +7,7 @@ import com.employeeApp.payload.EmployeeDepartmentDto;
 public interface EmployeeDepartmentService 
 {
     //creating the dept 
-	public EmployeeDepartmentDto createEmployeeDept(EmployeeDepartmentDto department);
+	public EmployeeDepartmentDto createEmployeeDept(EmployeeDepartmentDto department,int adminId);
 	
 	//getting all the departments
 	public List<EmployeeDepartmentDto> getallDepartments();

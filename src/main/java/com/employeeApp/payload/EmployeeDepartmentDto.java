@@ -2,6 +2,8 @@ package com.employeeApp.payload;
 
 import java.util.List;
 
+import com.employeeApp.Entity.AdminEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +25,7 @@ public class EmployeeDepartmentDto
 	private List <EmployeeDetailsDto> employee;
 	
 	private List <ProjectDto> project;
+	
+	private AdminDto admin;
 	   
 }

@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.employeeApp.Entity.DepartmentEntity;
 import com.employeeApp.Entity.EmployeeDetailsEntity;
+import com.employeeApp.Entity.ProjectEntity;
 import com.employeeApp.exception.ResourceNotFoundException;
 import com.employeeApp.payload.EmployeeDepartmentDto;
 import com.employeeApp.payload.EmployeeDetailsDto;
+import com.employeeApp.payload.ProjectDto;
 import com.employeeApp.repository.EmployeeDepartmentRepo;
 import com.employeeApp.repository.EmployeeDetailsRepository;
+import com.employeeApp.repository.ProjectRepository;
 import com.employeeApp.service.EmployeeDetailsService;
 @Service
 public class EmployeeDetailsServiceImplementation implements EmployeeDetailsService{
@@ -26,12 +29,21 @@ public class EmployeeDetailsServiceImplementation implements EmployeeDetailsServ
     @Autowired
      ModelMapper modelMapper;
     
+    @Autowired
+    ProjectRepository projectRepo;
+    
     
 	@Override
-	public EmployeeDetailsDto addemployeeDetails(EmployeeDetailsDto employeeDto,int departmentId) {
+	public EmployeeDetailsDto addemployeeDetails(EmployeeDetailsDto employeeDto,int departmentId,int projectId) {
 		DepartmentEntity departmentEntity=this.employeeDeptRepository.findById(departmentId).orElseThrow(
 				()->new ResourceNotFoundException("Department", "DepartmentId", departmentId));
+		
+		ProjectEntity projectEntity=this.projectRepo.findById(projectId).orElseThrow(
+				()->new ResourceNotFoundException("Project", "ProjectId", projectId));
+		
 		employeeDto.setDepartment(this.modelMapper.map(departmentEntity, EmployeeDepartmentDto.class));
+		
+		employeeDto.setProject(this.modelMapper.map(projectEntity, ProjectDto.class));
 		EmployeeDetailsEntity employeeEntity=this.employeeDetailsRepo.save(this.employeeDtoToEntity(employeeDto));
 		
 		return this.employeeEntityToDto(employeeEntity);
@@ -96,6 +108,16 @@ public class EmployeeDetailsServiceImplementation implements EmployeeDetailsServ
 		List <EmployeeDetailsDto> employeeDetailsDto=employeeDetailsEntity.stream().map
 				(employees->this.employeeEntityToDto(employees)).collect(Collectors.toList());
 		return employeeDetailsDto;
+	}
+
+	@Override
+	public List<EmployeeDetailsDto> getAllEmployeeByProject(int projectId) {
+		ProjectEntity projectEntity=this.projectRepo.findById(projectId).orElseThrow(
+				()->new ResourceNotFoundException("Project", "ProjectId", projectId));
+		List<EmployeeDetailsEntity> employeeEntity=this.employeeDetailsRepo.findByProject(projectEntity);
+		List<EmployeeDetailsDto> employeeDto=employeeEntity.stream().map
+				(employees->this.employeeEntityToDto(employees)).collect(Collectors.toList());
+		return employeeDto;
 	}
 
 	

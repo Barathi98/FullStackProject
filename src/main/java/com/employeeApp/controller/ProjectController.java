@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.employeeApp.exception.ApiResponse;
+import com.employeeApp.payload.EmployeeDetailsDto;
 import com.employeeApp.payload.ProjectDto;
 import com.employeeApp.service.ProjectService;
 
@@ -38,9 +39,9 @@ public class ProjectController
 	}
 	
 	@GetMapping("/project/{projectId}")
-	public ResponseEntity<ProjectDto> getProjectById(@PathVariable int ProjectId)
+	public ResponseEntity<ProjectDto> getProjectById(@PathVariable int projectId)
 	{
-		ProjectDto getProject=this.projectService.getProjectById(ProjectId);
+		ProjectDto getProject=this.projectService.getProjectById(projectId);
 		return new ResponseEntity<ProjectDto>(getProject,HttpStatus.OK);
 		
 	}
@@ -53,20 +54,30 @@ public class ProjectController
 		
 	}
 	
-	@PutMapping("project/{projectId}")
-	public ResponseEntity<ProjectDto> updateProjectById(ProjectDto projectDto,int projectId)
+	@PutMapping("/department/{departmentId}/project/{projectId}")
+	public ResponseEntity<ProjectDto> updateProjectById(@RequestBody ProjectDto projectDto,
+			@PathVariable int projectId)
 	{
 		ProjectDto updatedProject=this.projectService.updateProjectById(projectDto, projectId);
 		return new ResponseEntity<ProjectDto>(updatedProject,HttpStatus.OK);
 		
 	}
 	
-	@DeleteMapping("project/{projectId}")
-    public ResponseEntity<ApiResponse> deleteProjectById(int projectId)
+	@DeleteMapping("/project/{projectId}")
+    public ResponseEntity<ApiResponse> deleteProjectById(@PathVariable int projectId)
     {
 		this.projectService.deleteProjectById(projectId);
 		ApiResponse deletedProject=new ApiResponse("project is deleted successfully", true);
 		return new ResponseEntity<ApiResponse> (deletedProject,HttpStatus.OK);
 		
     }
+	
+	@GetMapping("/project/department/{departmentId}")
+	public ResponseEntity<List<ProjectDto>> getAllEmployeeByDept(@PathVariable int departmentId)
+	{
+		List<ProjectDto> getAllEmployeeByDept=this.projectService.getProjectByDepartment(departmentId);
+		return new ResponseEntity<List<ProjectDto>>(getAllEmployeeByDept,HttpStatus.OK);
+		
+	}
+
 }

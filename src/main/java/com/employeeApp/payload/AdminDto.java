@@ -13,17 +13,16 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ProjectDto {
-	private int projectId;
-
-	private String projectTitle;
-
-	private String ProjectLeadName;
-
-//	private int TeamSize;
-
-	private EmployeeDepartmentDto department;
-
-	private List<EmployeeDetailsDto> employeeDetails;
+public class AdminDto
+{
+	private int adminId;
+	
+	private String adminName;
+	
+	private String adminEmail;
+	
+	private String password;
+	
+	private List <EmployeeDepartmentDto> department;
 
 }
