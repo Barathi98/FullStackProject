@@ -52,18 +52,11 @@ public class DepartmentEntity {
 	@ManyToOne
 	private AdminEntity admin;
 
-//   @JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL)
-//   @JsonManagedReference
-	// mappedBy="department",
-//   @LazyCollection(LazyCollectionOption.FALSE)
-//   @ElementCollection(fetch = FetchType.EAGER)
 
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<EmployeeDetailsEntity> employee = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL)
-//   @ElementCollection(fetch = FetchType.EAGER)
-//  @JsonManagedReference
 	private List<ProjectEntity> project = new ArrayList<>();
 
 }
