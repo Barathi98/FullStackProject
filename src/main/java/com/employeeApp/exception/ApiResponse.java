@@ -9,8 +9,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @ToString
-public class ApiResponse 
-{
-  private String message;
-  private boolean success;
+public class ApiResponse {
+	private String message;
+	private boolean success;
 }

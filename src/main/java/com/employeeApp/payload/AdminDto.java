@@ -13,16 +13,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AdminDto
-{
+public class AdminDto {
 	private int adminId;
-	
+
 	private String adminName;
-	
+
 	private String adminEmail;
-	
+
 	private String password;
-	
-	private List <EmployeeDepartmentDto> department;
+
+	private List<EmployeeDepartmentDto> department;
 
 }

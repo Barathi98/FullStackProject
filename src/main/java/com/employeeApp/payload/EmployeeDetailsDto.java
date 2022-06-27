@@ -11,27 +11,26 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class EmployeeDetailsDto 
-{
+public class EmployeeDetailsDto {
 	private int employeeId;
-	  
-	  private String employeeFirstName;
-	
-	  private String employeeLastName;
-	  
-	  private String employeeMobileNumber;
-	 
-	  private String employeeEmail;
-	  
-	  private String employeeeAddress;
-	
-	  private String employeeBloodGroup;
-	 
-	  private String employeeDesignation;
-	  
-	  private String employeeSalary;
-	  
-	  private EmployeeDepartmentDto department;
-	  
-	  private ProjectDto project;
+
+	private String employeeFirstName;
+
+	private String employeeLastName;
+
+	private String employeeMobileNumber;
+
+	private String employeeEmail;
+
+	private String employeeeAddress;
+
+	private String employeeBloodGroup;
+
+	private String employeeDesignation;
+
+	private String employeeSalary;
+
+	private EmployeeDepartmentDto department;
+
+	private ProjectDto project;
 }

@@ -20,60 +20,58 @@ import com.employeeApp.service.EmployeeDepartmentService;
 public class EmployeeDepartmentServiceImplementation implements EmployeeDepartmentService {
 	@Autowired
 	private EmployeeDepartmentRepo employeeDeptRepository;
-	
+
 	@Autowired
 	private AdminRepository adminRepository;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
-	public EmployeeDepartmentDto createEmployeeDept(EmployeeDepartmentDto departmentDto,int adminId) {
-		AdminEntity adminEntity=this.adminRepository.findById(adminId).orElseThrow(
-				()->new ResourceNotFoundException("Admin", "AdminId", adminId)); 
-	
+	public EmployeeDepartmentDto createEmployeeDept(EmployeeDepartmentDto departmentDto, int adminId) {
+		AdminEntity adminEntity = this.adminRepository.findById(adminId)
+				.orElseThrow(() -> new ResourceNotFoundException("Admin", "AdminId", adminId));
+
 		departmentDto.setAdmin(this.modelMapper.map(adminEntity, AdminDto.class));
-//		DepartmentEntity deptEntity = this.departmentDtoToEntity(departmentDto);
-		
-//		adminEntity.getDepartment().add(deptEntity);
-//		deptEntity.setAdmin(adminEntity);
-		//departmentDto.setAdmin(this.modelMapper.map(adminEntity, AdminDto.class));
-		DepartmentEntity savedDepartment = this.employeeDeptRepository.save(this.modelMapper.map(departmentDto, DepartmentEntity.class));
+
+		DepartmentEntity savedDepartment = this.employeeDeptRepository
+				.save(this.modelMapper.map(departmentDto, DepartmentEntity.class));
 		return this.departmentEntityToDto(savedDepartment);
 	}
 
 	@Override
 	public List<EmployeeDepartmentDto> getallDepartments() {
-		List<DepartmentEntity> departmentList = this.employeeDeptRepository.findAll();
-		
-		System.out.println("List=================="+departmentList);
-		List<EmployeeDepartmentDto> deptDtoList = departmentList.stream()
-				.map(departments -> this.modelMapper.map(departmentList, EmployeeDepartmentDto.class)).collect(Collectors.toList());
-		return deptDtoList;
+		List<EmployeeDepartmentDto> departmentList = this.employeeDeptRepository.findAll().stream()
+				.map(departments -> this.modelMapper.map(departments, EmployeeDepartmentDto.class))
+				.collect(Collectors.toList());
+
+		return departmentList;
 	}
 
 	@Override
 	public EmployeeDepartmentDto getDepartmentById(int departmentId) {
-		DepartmentEntity deptEntity=this.employeeDeptRepository.findById(departmentId).orElseThrow(
-				()->new ResourceNotFoundException("Department", "DepartmentId", departmentId));
-		return this.departmentEntityToDto(deptEntity);
+		DepartmentEntity deptEntity = this.employeeDeptRepository.findById(departmentId)
+				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
+		return this.modelMapper.map(deptEntity, EmployeeDepartmentDto.class);
 	}
 
 	@Override
 	public EmployeeDepartmentDto updateDepartmentById(EmployeeDepartmentDto employeedeptDto, int departmentId) {
-		DepartmentEntity departmentEntity=this.employeeDeptRepository.findById(departmentId).orElseThrow(
-				()->new ResourceNotFoundException("Department", "DepartmentId", departmentId));
-		//departmentEntity.setEmployeeDeptId(employeedeptDto.getDepartmentId());
+		DepartmentEntity departmentEntity = this.employeeDeptRepository.findById(departmentId)
+				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
+		// departmentEntity.setEmployeeDeptId(employeedeptDto.getDepartmentId());
 		departmentEntity.setDepartmentName(employeedeptDto.getDepartmentName());
+
+		// departmentEntity.setEmployee(null);
 		return this.departmentEntityToDto(departmentEntity);
 	}
 
 	@Override
 	public void deleteDepartmentById(int departmentId) {
-		DepartmentEntity departmentEntity=this.employeeDeptRepository.findById(departmentId).orElseThrow(
-				()->new ResourceNotFoundException("Department", "DepartmentId", departmentId));
+		DepartmentEntity departmentEntity = this.employeeDeptRepository.findById(departmentId)
+				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
 		this.employeeDeptRepository.delete(departmentEntity);
-	
+
 	}
 
 	// DtoToEntity
@@ -93,6 +91,17 @@ public class EmployeeDepartmentServiceImplementation implements EmployeeDepartme
 		employeedeptDto.setDepartmentName(departmentEntity.getDepartmentName());
 		return employeedeptDto;
 
+	}
+
+	@Override
+	public List<EmployeeDepartmentDto> getAllDepartmentByAdmin(int adminId) {
+		AdminEntity adminEntity = this.adminRepository.findById(adminId)
+				.orElseThrow(() -> new ResourceNotFoundException("Admin", "AdminId", adminId));
+		List<DepartmentEntity> departmentList = this.employeeDeptRepository.findByAdmin(adminEntity);
+		List<EmployeeDepartmentDto> deptDtoList = departmentList.stream()
+				.map(department -> this.modelMapper.map(department, EmployeeDepartmentDto.class))
+				.collect(Collectors.toList());
+		return deptDtoList;
 	}
 
 }

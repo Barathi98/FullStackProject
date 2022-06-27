@@ -20,8 +20,6 @@ public class ProjectDto {
 
 	private String ProjectLeadName;
 
-//	private int TeamSize;
-
 	private EmployeeDepartmentDto department;
 
 	private List<EmployeeDetailsDto> employeeDetails;

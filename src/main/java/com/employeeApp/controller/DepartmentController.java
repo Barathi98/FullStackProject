@@ -20,53 +20,63 @@ import org.springframework.web.bind.annotation.RestController;
 import com.employeeApp.exception.ApiResponse;
 import com.employeeApp.payload.EmployeeDepartmentDto;
 import com.employeeApp.service.EmployeeDepartmentService;
+
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200/")
-public class DepartmentController 
-{
-  @Autowired
-  EmployeeDepartmentService employeeDeptService;
 
-@PostMapping("/department/{adminId}")
-public ResponseEntity<EmployeeDepartmentDto> createDepartment(@Valid @RequestBody EmployeeDepartmentDto department,
-		@PathVariable int adminId)
-{
-	EmployeeDepartmentDto createDept=this.employeeDeptService.createEmployeeDept(department,adminId);
-	return new ResponseEntity<EmployeeDepartmentDto>(createDept,HttpStatus.CREATED);
-	
-}
+public class DepartmentController {
+	@Autowired
+	EmployeeDepartmentService employeeDeptService;
 
-@GetMapping("/department/")
-public ResponseEntity<List <EmployeeDepartmentDto>> getDepartments() 
-{
-	List<EmployeeDepartmentDto> allDepartments=this.employeeDeptService.getallDepartments();
-	//System.out.println(allDepartments.g);
-	return new ResponseEntity<List<EmployeeDepartmentDto>> (allDepartments,HttpStatus.OK);
-	
-}
+//To create a department by Admin parent id	
+	@PostMapping("/department/{adminId}")
+	public ResponseEntity<EmployeeDepartmentDto> createDepartment(@Valid @RequestBody EmployeeDepartmentDto department,
+			@PathVariable int adminId) {
+		EmployeeDepartmentDto createDept = this.employeeDeptService.createEmployeeDept(department, adminId);
+		return new ResponseEntity<EmployeeDepartmentDto>(createDept, HttpStatus.CREATED);
 
-@GetMapping("/department/{departmentId}")
-public ResponseEntity<EmployeeDepartmentDto> getDepartmentById(@PathVariable int departmentId)
-{
-	EmployeeDepartmentDto employeeDeptDto=this.employeeDeptService.getDepartmentById(departmentId);
+	}
 
-	return new ResponseEntity<EmployeeDepartmentDto>(employeeDeptDto,HttpStatus.OK);
-}	
+	// To fetch all departments
+	@GetMapping("/department/")
+	public ResponseEntity<List<EmployeeDepartmentDto>> getDepartments() {
+		List<EmployeeDepartmentDto> allDepartments = this.employeeDeptService.getallDepartments();
+		// System.out.println(allDepartments.g);
+		return new ResponseEntity<List<EmployeeDepartmentDto>>(allDepartments, HttpStatus.OK);
 
-@PutMapping("/department/{departmentId}")
-public ResponseEntity<EmployeeDepartmentDto> updateDepartmentbyId
-(@RequestBody EmployeeDepartmentDto department,@PathVariable int departmentId)
-{
-	EmployeeDepartmentDto employeeDeptDto=this.employeeDeptService.updateDepartmentById(department, departmentId);
-	return new ResponseEntity<EmployeeDepartmentDto>(employeeDeptDto,HttpStatus.OK);
-}
+	}
 
-@DeleteMapping("/department/{departmentId}")
-public ResponseEntity<ApiResponse> deleteDepartmentById(@PathVariable int departmentId)
-{
-	this.employeeDeptService.deleteDepartmentById(departmentId);
-	return new ResponseEntity<ApiResponse>(new ApiResponse("department is successfully deleted", true),HttpStatus.OK);
-	
-}
+	// To fetch a department by Id
+	@GetMapping("/department/{departmentId}")
+	public ResponseEntity<EmployeeDepartmentDto> getDepartmentById(@PathVariable int departmentId) {
+		EmployeeDepartmentDto employeeDeptDto = this.employeeDeptService.getDepartmentById(departmentId);
+
+		return new ResponseEntity<EmployeeDepartmentDto>(employeeDeptDto, HttpStatus.OK);
+	}
+
+	// To update department by Id
+	@PutMapping("/department/{departmentId}")
+	public ResponseEntity<EmployeeDepartmentDto> updateDepartmentbyId(@RequestBody EmployeeDepartmentDto department,
+			@PathVariable int departmentId) {
+		EmployeeDepartmentDto employeeDeptDto = this.employeeDeptService.updateDepartmentById(department, departmentId);
+		return new ResponseEntity<EmployeeDepartmentDto>(employeeDeptDto, HttpStatus.OK);
+	}
+
+	// To delete department by Id
+	@DeleteMapping("/department/{departmentId}")
+	public ResponseEntity<ApiResponse> deleteDepartmentById(@PathVariable int departmentId) {
+		this.employeeDeptService.deleteDepartmentById(departmentId);
+		return new ResponseEntity<ApiResponse>(new ApiResponse("department is successfully deleted", true),
+				HttpStatus.OK);
+
+	}
+
+	// To fetch all the departments by adminId
+	@GetMapping("departments/{adminId}")
+
+	public ResponseEntity<List<EmployeeDepartmentDto>> getAlldepartmentByAdmin(@PathVariable int adminId) {
+		List<EmployeeDepartmentDto> departmentList = this.employeeDeptService.getAllDepartmentByAdmin(adminId);
+		return new ResponseEntity<List<EmployeeDepartmentDto>>(departmentList, HttpStatus.OK);
+	}
+
 }

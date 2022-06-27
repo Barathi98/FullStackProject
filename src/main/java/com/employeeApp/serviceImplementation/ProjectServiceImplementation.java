@@ -63,7 +63,6 @@ public class ProjectServiceImplementation implements ProjectService {
 	@Override
 	public ProjectDto updateProjectById(ProjectDto projectDto, int projectId) {
 
-
 		ProjectEntity projectEntity = this.projectRepo.findById(projectId)
 				.orElseThrow(() -> new ResourceNotFoundException("Project", "ProjectId", projectId));
 //
