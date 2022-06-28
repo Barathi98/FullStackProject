@@ -59,10 +59,10 @@ public class EmployeeDepartmentServiceImplementation implements EmployeeDepartme
 	public EmployeeDepartmentDto updateDepartmentById(EmployeeDepartmentDto employeedeptDto, int departmentId) {
 		DepartmentEntity departmentEntity = this.employeeDeptRepository.findById(departmentId)
 				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
-		// departmentEntity.setEmployeeDeptId(employeedeptDto.getDepartmentId());
+		
 		departmentEntity.setDepartmentName(employeedeptDto.getDepartmentName());
 
-		// departmentEntity.setEmployee(null);
+		
 		return this.departmentEntityToDto(departmentEntity);
 	}
 
