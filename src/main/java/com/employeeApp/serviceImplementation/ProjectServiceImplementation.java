@@ -65,9 +65,7 @@ public class ProjectServiceImplementation implements ProjectService {
 
 		ProjectEntity projectEntity = this.projectRepo.findById(projectId)
 				.orElseThrow(() -> new ResourceNotFoundException("Project", "ProjectId", projectId));
-//
-//		projectEntity.setProjectTitle(projectDto.getProjectTitle());
-//		projectEntity.setProjectLeadName(projectDto.getProjectLeadName());
+
 		ProjectEntity updatedProject = this.projectRepo.save(this.projectDtoToEntity(projectDto));
 		return this.projectEntityToDto(updatedProject);
 	}
