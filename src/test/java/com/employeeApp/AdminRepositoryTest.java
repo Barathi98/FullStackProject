@@ -1,8 +1,6 @@
 package com.employeeApp;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.jupiter.api.MethodOrderer;
@@ -15,8 +13,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.employeeApp.Entity.AdminEntity;
-import com.employeeApp.Entity.EmployeeDetailsEntity;
+import com.employeeApp.entity.AdminEntity;
+import com.employeeApp.entity.EmployeeDetailsEntity;
 import com.employeeApp.repository.AdminRepository;
 
 @RunWith(SpringRunner.class)

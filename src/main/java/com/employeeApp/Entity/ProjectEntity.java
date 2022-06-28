@@ -1,4 +1,4 @@
-package com.employeeApp.Entity;
+package com.employeeApp.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,6 @@ import lombok.ToString;
 @Builder
 public class ProjectEntity {
 	@Id
-	@SequenceGenerator(name = "project", initialValue = 401)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int projectId;
 
@@ -52,12 +51,7 @@ public class ProjectEntity {
 	@Size(min = 4, max = 20)
 	private String projectLeadName;
 
-//  @Column
-//  @NotNull
-//  private int TeamSize;
-
 	@ManyToOne
-//  @JsonBackReference
 	private DepartmentEntity department;
 
 	@OneToMany(cascade = CascadeType.ALL)

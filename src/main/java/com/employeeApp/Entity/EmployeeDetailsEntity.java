@@ -1,4 +1,4 @@
-package com.employeeApp.Entity;
+package com.employeeApp.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,7 +35,6 @@ import lombok.ToString;
 @Builder
 public class EmployeeDetailsEntity {
 	@Id
-	@SequenceGenerator(name = "emp", initialValue = 301)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int employeeId;
 
@@ -76,14 +75,9 @@ public class EmployeeDetailsEntity {
 	private String employeeSalary;
 
 	@ManyToOne
-
-//  (optional=true)
-//  @JoinColumn(name="department_id")
-
 	private DepartmentEntity department;
 
 	@ManyToOne
-//  @JsonBackReference
 	private ProjectEntity project;
 
 }

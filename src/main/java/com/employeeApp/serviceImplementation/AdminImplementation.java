@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.employeeApp.Entity.AdminEntity;
+import com.employeeApp.entity.AdminEntity;
 import com.employeeApp.exception.ResourceNotFoundException;
 import com.employeeApp.payload.AdminDto;
 import com.employeeApp.repository.AdminRepository;

@@ -15,9 +15,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.employeeApp.Entity.DepartmentEntity;
-import com.employeeApp.Entity.EmployeeDetailsEntity;
-import com.employeeApp.Entity.ProjectEntity;
+import com.employeeApp.entity.DepartmentEntity;
+import com.employeeApp.entity.EmployeeDetailsEntity;
+import com.employeeApp.entity.ProjectEntity;
 import com.employeeApp.repository.EmployeeDepartmentRepo;
 import com.employeeApp.repository.EmployeeDetailsRepository;
 import com.employeeApp.repository.ProjectRepository;

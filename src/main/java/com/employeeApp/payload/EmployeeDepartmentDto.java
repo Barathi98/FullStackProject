@@ -2,7 +2,7 @@ package com.employeeApp.payload;
 
 import java.util.List;
 
-import com.employeeApp.Entity.AdminEntity;
+import com.employeeApp.entity.AdminEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

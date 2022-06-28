@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.employeeApp.Entity.DepartmentEntity;
-import com.employeeApp.Entity.EmployeeDetailsEntity;
-import com.employeeApp.Entity.ProjectEntity;
+import com.employeeApp.entity.DepartmentEntity;
+import com.employeeApp.entity.EmployeeDetailsEntity;
+import com.employeeApp.entity.ProjectEntity;
 
 public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetailsEntity, Integer> {
 	List<EmployeeDetailsEntity> findByDepartment(DepartmentEntity department);

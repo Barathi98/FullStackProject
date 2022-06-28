@@ -7,9 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.employeeApp.Entity.DepartmentEntity;
-import com.employeeApp.Entity.EmployeeDetailsEntity;
-import com.employeeApp.Entity.ProjectEntity;
+import com.employeeApp.entity.DepartmentEntity;
+import com.employeeApp.entity.EmployeeDetailsEntity;
+import com.employeeApp.entity.ProjectEntity;
 import com.employeeApp.exception.ResourceNotFoundException;
 import com.employeeApp.payload.EmployeeDepartmentDto;
 import com.employeeApp.payload.EmployeeDetailsDto;

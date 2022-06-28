@@ -1,4 +1,4 @@
-package com.employeeApp.Entity;
+package com.employeeApp.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,6 @@ import lombok.ToString;
 @Table(name = "Department")
 public class DepartmentEntity {
 	@Id
-	@SequenceGenerator(name = "dept", initialValue = 101)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int departmentId;
 
