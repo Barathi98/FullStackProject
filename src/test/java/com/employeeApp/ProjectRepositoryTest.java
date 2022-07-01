@@ -1,8 +1,6 @@
-package com.employeeApp;
+package com.employeeapp;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.jupiter.api.MethodOrderer;
@@ -14,10 +12,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.employeeApp.entity.DepartmentEntity;
-import com.employeeApp.entity.ProjectEntity;
-import com.employeeApp.repository.EmployeeDepartmentRepo;
-import com.employeeApp.repository.ProjectRepository;
+import com.employeeapp.entity.DepartmentEntity;
+import com.employeeapp.entity.ProjectEntity;
+import com.employeeapp.repository.DepartmentRepository;
+import com.employeeapp.repository.ProjectRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -28,7 +26,7 @@ public class ProjectRepositoryTest {
 	ProjectRepository projectRepository;
 
 	@Autowired
-	EmployeeDepartmentRepo departmentRepo;
+	DepartmentRepository departmentRepo;
 
 	@Test
 	@Order(1)

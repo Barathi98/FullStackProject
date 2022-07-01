@@ -1,4 +1,4 @@
-package com.employeeApp.serviceImplementation;
+package com.employeeapp.serviceImplementation;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,14 +7,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.employeeApp.entity.AdminEntity;
-import com.employeeApp.exception.ResourceNotFoundException;
-import com.employeeApp.payload.AdminDto;
-import com.employeeApp.repository.AdminRepository;
-import com.employeeApp.service.AdminService;
+import com.employeeapp.entity.AdminEntity;
+import com.employeeapp.exception.ResourceNotFoundException;
+import com.employeeapp.payload.AdminDto;
+import com.employeeapp.repository.AdminRepository;
+import com.employeeapp.service.AdminService;
+
 
 @Service
-public class AdminImplementation implements AdminService {
+public class AdminServiceImplementation implements AdminService {
 
 	@Autowired
 	AdminRepository adminRepository;

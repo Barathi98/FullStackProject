@@ -1,4 +1,4 @@
-package com.employeeApp.payload;
+package com.employeeapp.payload;
 
 import java.util.List;
 
@@ -22,6 +22,6 @@ public class AdminDto {
 
 	private String password;
 
-	private List<EmployeeDepartmentDto> department;
+	private List<DepartmentDto> department;
 
 }

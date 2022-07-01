@@ -1,4 +1,4 @@
-package com.employeeApp.controller;
+package com.employeeapp.controller;
 
 import java.util.List;
 
@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.employeeApp.exception.ApiResponse;
-import com.employeeApp.payload.EmployeeDetailsDto;
-import com.employeeApp.payload.ProjectDto;
-import com.employeeApp.service.ProjectService;
+import com.employeeapp.exception.ApiResponse;
+import com.employeeapp.payload.ProjectDto;
+import com.employeeapp.service.ProjectService;
 
 @RestController
 @RequestMapping("/api")

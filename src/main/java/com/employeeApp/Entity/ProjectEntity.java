@@ -1,4 +1,4 @@
-package com.employeeApp.entity;
+package com.employeeapp.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,5 +55,5 @@ public class ProjectEntity {
 	private DepartmentEntity department;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<EmployeeDetailsEntity> employeeDetails = new ArrayList<EmployeeDetailsEntity>();
+	private List<EmployeeEntity> employeeDetails = new ArrayList<EmployeeEntity>();
 }

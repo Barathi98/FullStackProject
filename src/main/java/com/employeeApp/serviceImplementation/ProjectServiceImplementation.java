@@ -1,4 +1,4 @@
-package com.employeeApp.serviceImplementation;
+package com.employeeapp.serviceImplementation;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,17 +7,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.employeeApp.entity.DepartmentEntity;
-import com.employeeApp.entity.EmployeeDetailsEntity;
-import com.employeeApp.entity.ProjectEntity;
-import com.employeeApp.exception.ResourceNotFoundException;
-import com.employeeApp.payload.EmployeeDepartmentDto;
-import com.employeeApp.payload.EmployeeDetailsDto;
-import com.employeeApp.payload.ProjectDto;
-import com.employeeApp.repository.EmployeeDepartmentRepo;
-import com.employeeApp.repository.EmployeeDetailsRepository;
-import com.employeeApp.repository.ProjectRepository;
-import com.employeeApp.service.ProjectService;
+import com.employeeapp.entity.DepartmentEntity;
+import com.employeeapp.entity.ProjectEntity;
+import com.employeeapp.exception.ResourceNotFoundException;
+import com.employeeapp.payload.DepartmentDto;
+import com.employeeapp.payload.ProjectDto;
+import com.employeeapp.repository.DepartmentRepository;
+import com.employeeapp.repository.EmployeeRepository;
+import com.employeeapp.repository.ProjectRepository;
+import com.employeeapp.service.ProjectService;
 
 @Service
 public class ProjectServiceImplementation implements ProjectService {
@@ -28,17 +26,17 @@ public class ProjectServiceImplementation implements ProjectService {
 	ModelMapper modelMapper;
 
 	@Autowired
-	EmployeeDepartmentRepo deparmentRepo;
+	DepartmentRepository deparmentRepo;
 
 	@Autowired
-	EmployeeDetailsRepository employeeRepository;
+	EmployeeRepository employeeRepository;
 
 	@Override
 	public ProjectDto createProject(ProjectDto projectDto, int departmentId) {
 		DepartmentEntity departmentEntity = this.deparmentRepo.findById(departmentId)
 				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
 
-		projectDto.setDepartment(this.modelMapper.map(departmentEntity, EmployeeDepartmentDto.class));
+		projectDto.setDepartment(this.modelMapper.map(departmentEntity, DepartmentDto.class));
 
 		ProjectEntity savedProject = this.projectRepo.save(this.projectDtoToEntity(projectDto));
 
@@ -89,9 +87,11 @@ public class ProjectServiceImplementation implements ProjectService {
 
 	@Override
 	public List<ProjectDto> getProjectByDepartment(int departmentId) {
-		DepartmentEntity deptEntity = this.deparmentRepo.findById(departmentId)
-				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
-		List<ProjectEntity> projectEntityList = this.projectRepo.findByDepartment(deptEntity);
+		List<ProjectEntity> projectEntityList=this.projectRepo.getProjectByDepartmentId(departmentId);
+        System.out.println("Project list.."+projectEntityList);
+		//		DepartmentEntity deptEntity = this.deparmentRepo.findById(departmentId)
+//				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
+//		List<ProjectEntity> projectEntityList = this.projectRepo.findByDepartment(deptEntity);
 		List<ProjectDto> projectDtoList = projectEntityList.stream().map(projects -> this.projectEntityToDto(projects))
 				.collect(Collectors.toList());
 		return projectDtoList;

@@ -1,4 +1,4 @@
-package com.employeeApp.controller;
+package com.employeeapp.controller;
 
 import java.util.List;
 
@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.employeeApp.exception.ApiResponse;
-import com.employeeApp.payload.AdminDto;
-import com.employeeApp.service.AdminService;
+import com.employeeapp.exception.ApiResponse;
+import com.employeeapp.payload.AdminDto;
+import com.employeeapp.service.AdminService;
+
+
 
 @RestController
 @RequestMapping("/api")

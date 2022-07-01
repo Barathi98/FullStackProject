@@ -1,4 +1,4 @@
-package com.employeeApp;
+package com.employeeapp;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.employeeApp.entity.AdminEntity;
-import com.employeeApp.entity.DepartmentEntity;
-import com.employeeApp.repository.AdminRepository;
-import com.employeeApp.repository.EmployeeDepartmentRepo;
+import com.employeeapp.entity.AdminEntity;
+import com.employeeapp.entity.DepartmentEntity;
+import com.employeeapp.repository.AdminRepository;
+import com.employeeapp.repository.DepartmentRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -25,7 +25,7 @@ import com.employeeApp.repository.EmployeeDepartmentRepo;
 
 public class DepartmentRepositoryTest {
 	@Autowired
-	private EmployeeDepartmentRepo departmentRepo;
+	private DepartmentRepository departmentRepo;
 
 	@Autowired
 	private AdminRepository adminRepository;

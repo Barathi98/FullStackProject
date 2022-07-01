@@ -1,4 +1,4 @@
-package com.employeeApp.exception;
+package com.employeeapp.exception;
 
 import java.util.HashSet;
 import java.util.Set;

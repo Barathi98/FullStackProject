@@ -1,4 +1,4 @@
-package com.employeeApp;
+package com.employeeapp;
 
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -13,9 +13,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.employeeApp.entity.AdminEntity;
-import com.employeeApp.entity.EmployeeDetailsEntity;
-import com.employeeApp.repository.AdminRepository;
+import com.employeeapp.entity.AdminEntity;
+import com.employeeapp.repository.AdminRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

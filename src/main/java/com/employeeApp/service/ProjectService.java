@@ -1,8 +1,10 @@
-package com.employeeApp.service;
+package com.employeeapp.service;
 
 import java.util.List;
 
-import com.employeeApp.payload.ProjectDto;
+import com.employeeapp.payload.ProjectDto;
+
+
 
 public interface ProjectService {
 	public ProjectDto createProject(ProjectDto projectDto, int departmentId);

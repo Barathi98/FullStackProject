@@ -1,4 +1,4 @@
-package com.employeeApp.controller;
+package com.employeeapp.controller;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,53 +16,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.employeeApp.exception.ApiResponse;
-import com.employeeApp.payload.EmployeeDetailsDto;
-import com.employeeApp.service.EmployeeDetailsService;
+import com.employeeapp.exception.ApiResponse;
+import com.employeeapp.payload.EmployeeDto;
+import com.employeeapp.service.EmployeeService;
 
 @RestController
 @RequestMapping("/api")
 
 public class EmployeeDetailsController {
 	@Autowired
-	EmployeeDetailsService employeeDetailsService;
+	EmployeeService employeeDetailsService;
 
 	// To create an employee by parent ids which are department and project
 	@PostMapping("/department/{departmentId}/project/{projectId}/employeeDetails")
-	public ResponseEntity<EmployeeDetailsDto> addEmployeeDetails(@Valid @PathVariable int departmentId,
-			@PathVariable int projectId, @RequestBody EmployeeDetailsDto employee) {
+	public ResponseEntity<EmployeeDto> addEmployeeDetails(@Valid @PathVariable int departmentId,
+			@PathVariable int projectId, @RequestBody EmployeeDto employee) {
 		// System.out.println("this is departmentId " +departmentId+" this is
 		// employeeData "+ employee );
-		EmployeeDetailsDto addedEmployeeDetails = this.employeeDetailsService.addemployeeDetails(employee, departmentId,
+		EmployeeDto addedEmployeeDetails = this.employeeDetailsService.addemployeeDetails(employee, departmentId,
 				projectId);
-		return new ResponseEntity<EmployeeDetailsDto>(addedEmployeeDetails, HttpStatus.CREATED);
+		return new ResponseEntity<EmployeeDto>(addedEmployeeDetails, HttpStatus.CREATED);
 
 	}
 
 	// To fetch an employee by Id
 	@GetMapping("/employeeDetails/{employeeId}")
-	public ResponseEntity<EmployeeDetailsDto> getEmployeeDetailsById(@PathVariable int employeeId) {
-		EmployeeDetailsDto getEmployee = this.employeeDetailsService.getEmployeeDetailsById(employeeId);
-		return new ResponseEntity<EmployeeDetailsDto>(getEmployee, HttpStatus.OK);
+	public ResponseEntity<EmployeeDto> getEmployeeDetailsById(@PathVariable int employeeId) {
+		EmployeeDto getEmployee = this.employeeDetailsService.getEmployeeDetailsById(employeeId);
+		return new ResponseEntity<EmployeeDto>(getEmployee, HttpStatus.OK);
 
 	}
 
 //	To fetch all the employees
 	@GetMapping("/employeeDetails")
-	public ResponseEntity<List<EmployeeDetailsDto>> getAllEmployeeDetails() {
-		List<EmployeeDetailsDto> getAllEmployeeRecords = this.employeeDetailsService.getAllEmployeeDetails();
-		return new ResponseEntity<List<EmployeeDetailsDto>>(getAllEmployeeRecords, HttpStatus.OK);
+	public ResponseEntity<List<EmployeeDto>> getAllEmployeeDetails() {
+		List<EmployeeDto> getAllEmployeeRecords = this.employeeDetailsService.getAllEmployeeDetails();
+		return new ResponseEntity<List<EmployeeDto>>(getAllEmployeeRecords, HttpStatus.OK);
 
 	}
 
 	// To update an employee by Id
 	@PutMapping("/employeeDetails/{employeeId}")
-	public ResponseEntity<EmployeeDetailsDto> updateEmployeeDetails(@RequestBody EmployeeDetailsDto employee,
+	public ResponseEntity<EmployeeDto> updateEmployeeDetails(@RequestBody EmployeeDto employee,
 			@PathVariable int employeeId) {
-		EmployeeDetailsDto updatedEmployeeDetails = this.employeeDetailsService.updateEmployeeDetailsById(employee,
+		EmployeeDto updatedEmployeeDetails = this.employeeDetailsService.updateEmployeeDetailsById(employee,
 				employeeId);
 
-		return new ResponseEntity<EmployeeDetailsDto>(updatedEmployeeDetails, HttpStatus.OK);
+		return new ResponseEntity<EmployeeDto>(updatedEmployeeDetails, HttpStatus.OK);
 	}
 
 	// To delete an employee by Id
@@ -75,18 +74,18 @@ public class EmployeeDetailsController {
 
 	// To fetch all the employee by departmentId
 	@GetMapping("/employeeDetail/department/{departmentId}")
-	public ResponseEntity<List<EmployeeDetailsDto>> getAllEmployeeByDept(@PathVariable int departmentId) {
-		List<EmployeeDetailsDto> getAllEmployeeByDept = this.employeeDetailsService.getAllEmployeeByDept(departmentId);
-		return new ResponseEntity<List<EmployeeDetailsDto>>(getAllEmployeeByDept, HttpStatus.OK);
+	public ResponseEntity<List<EmployeeDto>> getAllEmployeeByDept(@PathVariable int departmentId) {
+		List<EmployeeDto> getAllEmployeeByDept = this.employeeDetailsService.getAllEmployeeByDept(departmentId);
+		return new ResponseEntity<List<EmployeeDto>>(getAllEmployeeByDept, HttpStatus.OK);
 
 	}
 
 	// To fetch all the employee by projectId
 	@GetMapping("/employeeDetail/project/{projectId}")
-	public ResponseEntity<List<EmployeeDetailsDto>> getAllEmployeeByProject(@PathVariable int projectId) {
-		List<EmployeeDetailsDto> getAllEmployeeByProject = this.employeeDetailsService
+	public ResponseEntity<List<EmployeeDto>> getAllEmployeeByProject(@PathVariable int projectId) {
+		List<EmployeeDto> getAllEmployeeByProject = this.employeeDetailsService
 				.getAllEmployeeByProject(projectId);
-		return new ResponseEntity<List<EmployeeDetailsDto>>(getAllEmployeeByProject, HttpStatus.OK);
+		return new ResponseEntity<List<EmployeeDto>>(getAllEmployeeByProject, HttpStatus.OK);
 
 	}
 

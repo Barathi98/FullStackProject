@@ -1,4 +1,4 @@
-package com.employeeApp.entity;
+package com.employeeapp.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,14 +26,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "EmployeeDetails")
+@Table(name = "Employee")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class EmployeeDetailsEntity {
+public class EmployeeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int employeeId;

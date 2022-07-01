@@ -1,4 +1,4 @@
-package com.employeeApp.payload;
+package com.employeeapp.payload;
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ public class ProjectDto {
 
 	private String ProjectLeadName;
 
-	private EmployeeDepartmentDto department;
+	private DepartmentDto department;
 
-	private List<EmployeeDetailsDto> employeeDetails;
+	private List<EmployeeDto> employeeDetails;
 
 }

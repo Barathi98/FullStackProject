@@ -1,4 +1,4 @@
-package com.employeeApp;
+package com.employeeapp;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,12 +15,12 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.employeeApp.entity.DepartmentEntity;
-import com.employeeApp.entity.EmployeeDetailsEntity;
-import com.employeeApp.entity.ProjectEntity;
-import com.employeeApp.repository.EmployeeDepartmentRepo;
-import com.employeeApp.repository.EmployeeDetailsRepository;
-import com.employeeApp.repository.ProjectRepository;
+import com.employeeapp.entity.DepartmentEntity;
+import com.employeeapp.entity.EmployeeEntity;
+import com.employeeapp.entity.ProjectEntity;
+import com.employeeapp.repository.DepartmentRepository;
+import com.employeeapp.repository.EmployeeRepository;
+import com.employeeapp.repository.ProjectRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -29,10 +29,10 @@ import com.employeeApp.repository.ProjectRepository;
 public class EmployeeRepositoryTest {
 
 	@Autowired
-	EmployeeDetailsRepository employeeRepository;
+	EmployeeRepository employeeRepository;
 
 	@Autowired
-	EmployeeDepartmentRepo departmentRepo;
+	DepartmentRepository departmentRepo;
 
 	@Autowired
 	ProjectRepository projectRepository;
@@ -40,7 +40,7 @@ public class EmployeeRepositoryTest {
 	@Test
 	@Order(1)
 	public void savedEmployeeTest() {
-		EmployeeDetailsEntity employee = EmployeeDetailsEntity.builder().employeeFirstName("Barathi")
+		EmployeeEntity employee = EmployeeEntity.builder().employeeFirstName("Barathi")
 				.employeeLastName("karunakaran").employeeMobileNumber("8608967899").employeeEmail("barathi@gmail.com")
 				.employeeeAddress("Chennai").employeeBloodGroup("A1 -ve").employeeDesignation("Developer")
 				.employeeSalary("28,000").build();
@@ -51,23 +51,23 @@ public class EmployeeRepositoryTest {
 	@Test
 	@Order(2)
 	public void getEmployeeByIdTest() {
-		EmployeeDetailsEntity employee = employeeRepository.findById(1).get();
+		EmployeeEntity employee = employeeRepository.findById(1).get();
 		Assertions.assertThat(employee.getEmployeeId()).isEqualTo(1);
 	}
 
 	@Test
 	@Order(3)
 	public void getAllEmployeeTest() {
-		List<EmployeeDetailsEntity> employeeList = employeeRepository.findAll();
+		List<EmployeeEntity> employeeList = employeeRepository.findAll();
 		Assertions.assertThat(employeeList.size()).isGreaterThan(0);
 	}
 
 	@Test
 	@Order(4)
 	public void updateEmployeeTest() {
-		EmployeeDetailsEntity employee = employeeRepository.findById(1).get();
+		EmployeeEntity employee = employeeRepository.findById(1).get();
 		employee.setEmployeeEmail("abc@gmail.com");
-		EmployeeDetailsEntity updatedEmployee = employeeRepository.save(employee);
+		EmployeeEntity updatedEmployee = employeeRepository.save(employee);
 		Assertions.assertThat(updatedEmployee.getEmployeeId()).isEqualTo(1);
 
 	}
@@ -75,10 +75,10 @@ public class EmployeeRepositoryTest {
 	@Test
 	@Order(5)
 	public void deleteEmployeeTest() {
-		EmployeeDetailsEntity employee = employeeRepository.findById(1).get();
+		EmployeeEntity employee = employeeRepository.findById(1).get();
 		employeeRepository.delete(employee);
-		EmployeeDetailsEntity employee1 = null;
-		Optional<EmployeeDetailsEntity> optionalEmployee = employeeRepository.findByEmployeeEmail("Barathi@gmail.com");
+		EmployeeEntity employee1 = null;
+		Optional<EmployeeEntity> optionalEmployee = employeeRepository.findByEmployeeEmail("Barathi@gmail.com");
 		if (optionalEmployee.isPresent()) {
 			employee1 = optionalEmployee.get();
 		}
@@ -90,7 +90,7 @@ public class EmployeeRepositoryTest {
 	@Order(6)
 	public void getAllEmployeeByDept() {
 		DepartmentEntity department = departmentRepo.findById(1).get();
-		List<EmployeeDetailsEntity> employeeList = employeeRepository.findByDepartment(department);
+		List<EmployeeEntity> employeeList = employeeRepository.findByDepartment(department);
 		Assertions.assertThat(employeeList.size()).isGreaterThan(0);
 	}
 
@@ -98,7 +98,7 @@ public class EmployeeRepositoryTest {
 	@Order(8)
 	public void getAllEmployeeByProject() {
 		ProjectEntity project = projectRepository.findById(1).get();
-		List<EmployeeDetailsEntity> employeeList = employeeRepository.findByProject(project);
+		List<EmployeeEntity> employeeList = employeeRepository.findByProject(project);
 		Assertions.assertThat(employeeList.size()).isGreaterThan(0);
 	}
 }

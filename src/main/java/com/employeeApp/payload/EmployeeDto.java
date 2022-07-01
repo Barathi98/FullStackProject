@@ -1,4 +1,4 @@
-package com.employeeApp.payload;
+package com.employeeapp.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class EmployeeDetailsDto {
+public class EmployeeDto {
 	private int employeeId;
 
 	private String employeeFirstName;
@@ -30,7 +30,7 @@ public class EmployeeDetailsDto {
 
 	private String employeeSalary;
 
-	private EmployeeDepartmentDto department;
+	private DepartmentDto department;
 
 	private ProjectDto project;
 }

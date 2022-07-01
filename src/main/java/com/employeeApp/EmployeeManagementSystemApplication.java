@@ -1,4 +1,4 @@
-package com.employeeApp;
+package com.employeeapp;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

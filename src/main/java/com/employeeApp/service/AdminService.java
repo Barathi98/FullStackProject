@@ -1,8 +1,8 @@
-package com.employeeApp.service;
+package com.employeeapp.service;
 
 import java.util.List;
 
-import com.employeeApp.payload.AdminDto;
+import com.employeeapp.payload.AdminDto;
 
 public interface AdminService {
 	public AdminDto createAdmin(AdminDto admin);
