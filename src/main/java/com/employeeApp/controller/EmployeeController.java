@@ -23,9 +23,9 @@ import com.employeeapp.service.EmployeeService;
 @RestController
 @RequestMapping("/api")
 
-public class EmployeeDetailsController {
+public class EmployeeController {
 	@Autowired
-	EmployeeService employeeDetailsService;
+	EmployeeService employeeService;
 
 	// To create an employee by parent ids which are department and project
 	@PostMapping("/department/{departmentId}/project/{projectId}/employeeDetails")
@@ -33,7 +33,7 @@ public class EmployeeDetailsController {
 			@PathVariable int projectId, @RequestBody EmployeeDto employee) {
 		// System.out.println("this is departmentId " +departmentId+" this is
 		// employeeData "+ employee );
-		EmployeeDto addedEmployeeDetails = this.employeeDetailsService.addemployeeDetails(employee, departmentId,
+		EmployeeDto addedEmployeeDetails = this.employeeService.addemployeeDetails(employee, departmentId,
 				projectId);
 		return new ResponseEntity<EmployeeDto>(addedEmployeeDetails, HttpStatus.CREATED);
 
@@ -42,7 +42,7 @@ public class EmployeeDetailsController {
 	// To fetch an employee by Id
 	@GetMapping("/employeeDetails/{employeeId}")
 	public ResponseEntity<EmployeeDto> getEmployeeDetailsById(@PathVariable int employeeId) {
-		EmployeeDto getEmployee = this.employeeDetailsService.getEmployeeDetailsById(employeeId);
+		EmployeeDto getEmployee = this.employeeService.getEmployeeDetailsById(employeeId);
 		return new ResponseEntity<EmployeeDto>(getEmployee, HttpStatus.OK);
 
 	}
@@ -50,7 +50,7 @@ public class EmployeeDetailsController {
 //	To fetch all the employees
 	@GetMapping("/employeeDetails")
 	public ResponseEntity<List<EmployeeDto>> getAllEmployeeDetails() {
-		List<EmployeeDto> getAllEmployeeRecords = this.employeeDetailsService.getAllEmployeeDetails();
+		List<EmployeeDto> getAllEmployeeRecords = this.employeeService.getAllEmployeeDetails();
 		return new ResponseEntity<List<EmployeeDto>>(getAllEmployeeRecords, HttpStatus.OK);
 
 	}
@@ -59,7 +59,7 @@ public class EmployeeDetailsController {
 	@PutMapping("/employeeDetails/{employeeId}")
 	public ResponseEntity<EmployeeDto> updateEmployeeDetails(@RequestBody EmployeeDto employee,
 			@PathVariable int employeeId) {
-		EmployeeDto updatedEmployeeDetails = this.employeeDetailsService.updateEmployeeDetailsById(employee,
+		EmployeeDto updatedEmployeeDetails = this.employeeService.updateEmployeeDetailsById(employee,
 				employeeId);
 
 		return new ResponseEntity<EmployeeDto>(updatedEmployeeDetails, HttpStatus.OK);
@@ -75,7 +75,7 @@ public class EmployeeDetailsController {
 	// To fetch all the employee by departmentId
 	@GetMapping("/employeeDetail/department/{departmentId}")
 	public ResponseEntity<List<EmployeeDto>> getAllEmployeeByDept(@PathVariable int departmentId) {
-		List<EmployeeDto> getAllEmployeeByDept = this.employeeDetailsService.getAllEmployeeByDept(departmentId);
+		List<EmployeeDto> getAllEmployeeByDept = this.employeeService.getAllEmployeeByDept(departmentId);
 		return new ResponseEntity<List<EmployeeDto>>(getAllEmployeeByDept, HttpStatus.OK);
 
 	}
@@ -83,7 +83,7 @@ public class EmployeeDetailsController {
 	// To fetch all the employee by projectId
 	@GetMapping("/employeeDetail/project/{projectId}")
 	public ResponseEntity<List<EmployeeDto>> getAllEmployeeByProject(@PathVariable int projectId) {
-		List<EmployeeDto> getAllEmployeeByProject = this.employeeDetailsService
+		List<EmployeeDto> getAllEmployeeByProject = this.employeeService
 				.getAllEmployeeByProject(projectId);
 		return new ResponseEntity<List<EmployeeDto>>(getAllEmployeeByProject, HttpStatus.OK);
 

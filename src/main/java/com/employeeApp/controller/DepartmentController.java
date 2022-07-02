@@ -25,13 +25,13 @@ import com.employeeapp.service.DepartmentService;
 
 public class DepartmentController {
 	@Autowired
-	DepartmentService employeeDeptService;
+	DepartmentService departmentService;
 
 //To create a department by Admin parent id	
 	@PostMapping("/department/{adminId}")
 	public ResponseEntity<DepartmentDto> createDepartment(@Valid @RequestBody DepartmentDto department,
 			@PathVariable int adminId) {
-		DepartmentDto createDept = this.employeeDeptService.createEmployeeDept(department, adminId);
+		DepartmentDto createDept = this.departmentService.createEmployeeDept(department, adminId);
 		return new ResponseEntity<DepartmentDto>(createDept, HttpStatus.CREATED);
 
 	}
@@ -39,7 +39,7 @@ public class DepartmentController {
 	// To fetch all departments
 	@GetMapping("/department/")
 	public ResponseEntity<List<DepartmentDto>> getDepartments() {
-		List<DepartmentDto> allDepartments = this.employeeDeptService.getallDepartments();
+		List<DepartmentDto> allDepartments = this.departmentService.getallDepartments();
 		// System.out.println(allDepartments.g);
 		return new ResponseEntity<List<DepartmentDto>>(allDepartments, HttpStatus.OK);
 
@@ -48,7 +48,7 @@ public class DepartmentController {
 	// To fetch a department by Id
 	@GetMapping("/department/{departmentId}")
 	public ResponseEntity<DepartmentDto> getDepartmentById(@PathVariable int departmentId) {
-		DepartmentDto employeeDeptDto = this.employeeDeptService.getDepartmentById(departmentId);
+		DepartmentDto employeeDeptDto = this.departmentService.getDepartmentById(departmentId);
 
 		return new ResponseEntity<DepartmentDto>(employeeDeptDto, HttpStatus.OK);
 	}
@@ -57,14 +57,14 @@ public class DepartmentController {
 	@PutMapping("/department/{departmentId}")
 	public ResponseEntity<DepartmentDto> updateDepartmentbyId(@RequestBody DepartmentDto department,
 			@PathVariable int departmentId) {
-		DepartmentDto employeeDeptDto = this.employeeDeptService.updateDepartmentById(department, departmentId);
+		DepartmentDto employeeDeptDto = this.departmentService.updateDepartmentById(department, departmentId);
 		return new ResponseEntity<DepartmentDto>(employeeDeptDto, HttpStatus.OK);
 	}
 
 	// To delete department by Id
 	@DeleteMapping("/department/{departmentId}")
 	public ResponseEntity<ApiResponse> deleteDepartmentById(@PathVariable int departmentId) {
-		this.employeeDeptService.deleteDepartmentById(departmentId);
+		this.departmentService.deleteDepartmentById(departmentId);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("department is successfully deleted", true),
 				HttpStatus.OK);
 
@@ -74,7 +74,7 @@ public class DepartmentController {
 	@GetMapping("departments/{adminId}")
 
 	public ResponseEntity<List<DepartmentDto>> getAlldepartmentByAdmin(@PathVariable int adminId) {
-		List<DepartmentDto> departmentList = this.employeeDeptService.getAllDepartmentByAdmin(adminId);
+		List<DepartmentDto> departmentList = this.departmentService.getAllDepartmentByAdmin(adminId);
 		return new ResponseEntity<List<DepartmentDto>>(departmentList, HttpStatus.OK);
 	}
 

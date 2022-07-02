@@ -19,7 +19,7 @@ import com.employeeapp.service.DepartmentService;
 @Service
 public class DepartmentServiceImplementation implements DepartmentService {
 	@Autowired
-	private DepartmentRepository employeeDeptRepository;
+	private DepartmentRepository departmentRepository;
 
 	@Autowired
 	private AdminRepository adminRepository;
@@ -34,14 +34,14 @@ public class DepartmentServiceImplementation implements DepartmentService {
 
 		departmentDto.setAdmin(this.modelMapper.map(adminEntity, AdminDto.class));
 
-		DepartmentEntity savedDepartment = this.employeeDeptRepository
+		DepartmentEntity savedDepartment = this.departmentRepository
 				.save(this.modelMapper.map(departmentDto, DepartmentEntity.class));
 		return this.departmentEntityToDto(savedDepartment);
 	}
 
 	@Override
 	public List<DepartmentDto> getallDepartments() {
-		List<DepartmentDto> departmentList = this.employeeDeptRepository.findAll().stream()
+		List<DepartmentDto> departmentList = this.departmentRepository.findAll().stream()
 				.map(departments -> this.modelMapper.map(departments, DepartmentDto.class))
 				.collect(Collectors.toList());
 
@@ -50,14 +50,14 @@ public class DepartmentServiceImplementation implements DepartmentService {
 
 	@Override
 	public DepartmentDto getDepartmentById(int departmentId) {
-		DepartmentEntity deptEntity = this.employeeDeptRepository.findById(departmentId)
+		DepartmentEntity deptEntity = this.departmentRepository.findById(departmentId)
 				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
 		return this.modelMapper.map(deptEntity, DepartmentDto.class);
 	}
 
 	@Override
 	public DepartmentDto updateDepartmentById(DepartmentDto employeedeptDto, int departmentId) {
-		DepartmentEntity departmentEntity = this.employeeDeptRepository.findById(departmentId)
+		DepartmentEntity departmentEntity = this.departmentRepository.findById(departmentId)
 				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
 
 		departmentEntity.setDepartmentName(employeedeptDto.getDepartmentName());
@@ -67,9 +67,9 @@ public class DepartmentServiceImplementation implements DepartmentService {
 
 	@Override
 	public void deleteDepartmentById(int departmentId) {
-		DepartmentEntity departmentEntity = this.employeeDeptRepository.findById(departmentId)
+		DepartmentEntity departmentEntity = this.departmentRepository.findById(departmentId)
 				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
-		this.employeeDeptRepository.delete(departmentEntity);
+		this.departmentRepository.delete(departmentEntity);
 
 	}
 
@@ -94,7 +94,7 @@ public class DepartmentServiceImplementation implements DepartmentService {
 
 	@Override
 	public List<DepartmentDto> getAllDepartmentByAdmin(int adminId) {
-		List<DepartmentEntity> departmentList = this.employeeDeptRepository.getEmployeeByDepartmentId(adminId);
+		List<DepartmentEntity> departmentList = this.departmentRepository.getEmployeeByDepartmentId(adminId);
 		System.out.println(departmentList);
 		// AdminEntity adminEntity = this.adminRepository.findById(adminId)
 //				.orElseThrow(() -> new ResourceNotFoundException("Admin", "AdminId", adminId));

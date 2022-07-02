@@ -32,7 +32,7 @@ public class EmployeeRepositoryTest {
 	EmployeeRepository employeeRepository;
 
 	@Autowired
-	DepartmentRepository departmentRepo;
+	DepartmentRepository departmentRepository;
 
 	@Autowired
 	ProjectRepository projectRepository;
@@ -89,7 +89,7 @@ public class EmployeeRepositoryTest {
 	@Test
 	@Order(6)
 	public void getAllEmployeeByDept() {
-		DepartmentEntity department = departmentRepo.findById(1).get();
+		DepartmentEntity department = departmentRepository.findById(1).get();
 		List<EmployeeEntity> employeeList = employeeRepository.findByDepartment(department);
 		Assertions.assertThat(employeeList.size()).isGreaterThan(0);
 	}

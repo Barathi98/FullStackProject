@@ -20,32 +20,32 @@ import com.employeeapp.service.ProjectService;
 @Service
 public class ProjectServiceImplementation implements ProjectService {
 	@Autowired
-	ProjectRepository projectRepo;
+	ProjectRepository projectRepository;
 
 	@Autowired
 	ModelMapper modelMapper;
 
 	@Autowired
-	DepartmentRepository deparmentRepo;
+	DepartmentRepository departmentRepository;
 
 	@Autowired
 	EmployeeRepository employeeRepository;
 
 	@Override
 	public ProjectDto createProject(ProjectDto projectDto, int departmentId) {
-		DepartmentEntity departmentEntity = this.deparmentRepo.findById(departmentId)
+		DepartmentEntity departmentEntity = this.departmentRepository.findById(departmentId)
 				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
 
 		projectDto.setDepartment(this.modelMapper.map(departmentEntity, DepartmentDto.class));
 
-		ProjectEntity savedProject = this.projectRepo.save(this.projectDtoToEntity(projectDto));
+		ProjectEntity savedProject = this.projectRepository.save(this.projectDtoToEntity(projectDto));
 
 		return this.projectEntityToDto(savedProject);
 	}
 
 	@Override
 	public ProjectDto getProjectById(int projectId) {
-		ProjectEntity projectEntity = this.projectRepo.findById(projectId)
+		ProjectEntity projectEntity = this.projectRepository.findById(projectId)
 				.orElseThrow(() -> new ResourceNotFoundException("Project", "ProjectId", projectId));
 
 		return this.projectEntityToDto(projectEntity);
@@ -53,7 +53,7 @@ public class ProjectServiceImplementation implements ProjectService {
 
 	@Override
 	public List<ProjectDto> getAllProject() {
-		List<ProjectDto> getAllProjects = this.projectRepo.findAll().stream()
+		List<ProjectDto> getAllProjects = this.projectRepository.findAll().stream()
 				.map(project -> this.projectEntityToDto(project)).collect(Collectors.toList());
 		return getAllProjects;
 	}
@@ -61,18 +61,18 @@ public class ProjectServiceImplementation implements ProjectService {
 	@Override
 	public ProjectDto updateProjectById(ProjectDto projectDto, int projectId) {
 
-		ProjectEntity projectEntity = this.projectRepo.findById(projectId)
+		ProjectEntity projectEntity = this.projectRepository.findById(projectId)
 				.orElseThrow(() -> new ResourceNotFoundException("Project", "ProjectId", projectId));
 
-		ProjectEntity updatedProject = this.projectRepo.save(this.projectDtoToEntity(projectDto));
+		ProjectEntity updatedProject = this.projectRepository.save(this.projectDtoToEntity(projectDto));
 		return this.projectEntityToDto(updatedProject);
 	}
 
 	@Override
 	public void deleteProjectById(int projectId) {
-		ProjectEntity projectEntity = this.projectRepo.findById(projectId)
+		ProjectEntity projectEntity = this.projectRepository.findById(projectId)
 				.orElseThrow(() -> new ResourceNotFoundException("Project", "ProjectId", projectId));
-		this.projectRepo.delete(projectEntity);
+		this.projectRepository.delete(projectEntity);
 	}
 
 	public ProjectEntity projectDtoToEntity(ProjectDto projectDto) {
@@ -87,7 +87,7 @@ public class ProjectServiceImplementation implements ProjectService {
 
 	@Override
 	public List<ProjectDto> getProjectByDepartment(int departmentId) {
-		List<ProjectEntity> projectEntityList=this.projectRepo.getProjectByDepartmentId(departmentId);
+		List<ProjectEntity> projectEntityList=this.projectRepository.getProjectByDepartmentId(departmentId);
         System.out.println("Project list.."+projectEntityList);
 		//		DepartmentEntity deptEntity = this.deparmentRepo.findById(departmentId)
 //				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));

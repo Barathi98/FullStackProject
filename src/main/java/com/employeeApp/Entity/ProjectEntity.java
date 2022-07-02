@@ -55,5 +55,5 @@ public class ProjectEntity {
 	private DepartmentEntity department;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<EmployeeEntity> employeeDetails = new ArrayList<EmployeeEntity>();
+	private List<EmployeeEntity> employee = new ArrayList<EmployeeEntity>();
 }

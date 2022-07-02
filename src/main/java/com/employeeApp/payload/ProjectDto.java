@@ -22,6 +22,6 @@ public class ProjectDto {
 
 	private DepartmentDto department;
 
-	private List<EmployeeDto> employeeDetails;
+	private List<EmployeeDto> employee;
 
 }

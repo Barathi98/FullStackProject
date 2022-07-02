@@ -25,7 +25,7 @@ import com.employeeapp.repository.DepartmentRepository;
 
 public class DepartmentRepositoryTest {
 	@Autowired
-	private DepartmentRepository departmentRepo;
+	private DepartmentRepository departmentRepository;
 
 	@Autowired
 	private AdminRepository adminRepository;
@@ -34,37 +34,37 @@ public class DepartmentRepositoryTest {
 	@Order(1)
 	public void savedDepartmentTest() {
 		DepartmentEntity department = DepartmentEntity.builder().departmentName("developer").build();
-		departmentRepo.save(department);
+		departmentRepository.save(department);
 		Assertions.assertThat(department.getDepartmentId()).isGreaterThan(0);
 	}
 
 	@Test
 	@Order(2)
 	public void getByIdDepartmentTest() {
-		DepartmentEntity department = departmentRepo.findById(1).get();
+		DepartmentEntity department = departmentRepository.findById(1).get();
 		Assertions.assertThat(department);
 	}
 
 	@Test
 	@Order(3)
 	public void getAllDepartmentTest() {
-		List<DepartmentEntity> departmentList = departmentRepo.findAll();
+		List<DepartmentEntity> departmentList = departmentRepository.findAll();
 		Assertions.assertThat(departmentList.size()).isGreaterThan(0);
 	}
 
 	@Test
 	@Order(4)
 	public void getDepartmentByIdTest() {
-		DepartmentEntity department = departmentRepo.findById(1).get();
+		DepartmentEntity department = departmentRepository.findById(1).get();
 		Assertions.assertThat(department.getDepartmentId()).isEqualTo(1);
 	}
 
 	@Test
 	@Order(5)
 	public void updateAdminTest() {
-		DepartmentEntity department = departmentRepo.findById(1).get();
+		DepartmentEntity department = departmentRepository.findById(1).get();
 		department.setDepartmentName("quality");
-		DepartmentEntity updatedDepartment = departmentRepo.save(department);
+		DepartmentEntity updatedDepartment = departmentRepository.save(department);
 		Assertions.assertThat(updatedDepartment.getDepartmentId()).isEqualTo(1);
 	}
 
@@ -72,7 +72,7 @@ public class DepartmentRepositoryTest {
 	@Order(6)
 	public void getDepartmentsByAdminId() {
 		AdminEntity admin = adminRepository.findById(1).get();
-		List<DepartmentEntity> departmentList = departmentRepo.findByAdmin(admin);
+		List<DepartmentEntity> departmentList = departmentRepository.findByAdmin(admin);
 		Assertions.assertThat(departmentList.size()).isGreaterThan(0);
 	}
 

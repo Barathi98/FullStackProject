@@ -22,10 +22,10 @@ import com.employeeapp.service.EmployeeService;
 @Service
 public class EmployeeServiceImplementation implements EmployeeService {
 	@Autowired
-	EmployeeRepository employeeDetailsRepo;
+	EmployeeRepository employeeRepository;
 
 	@Autowired
-	DepartmentRepository employeeDeptRepository;
+	DepartmentRepository departmentRepository;
 
 	@Autowired
 	ModelMapper modelMapper;
@@ -35,7 +35,7 @@ public class EmployeeServiceImplementation implements EmployeeService {
 
 	@Override
 	public EmployeeDto addemployeeDetails(EmployeeDto employeeDto, int departmentId, int projectId) {
-		DepartmentEntity departmentEntity = this.employeeDeptRepository.findById(departmentId)
+		DepartmentEntity departmentEntity = this.departmentRepository.findById(departmentId)
 				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
 
 		ProjectEntity projectEntity = this.projectRepo.findById(projectId)
@@ -44,14 +44,14 @@ public class EmployeeServiceImplementation implements EmployeeService {
 		employeeDto.setDepartment(this.modelMapper.map(departmentEntity, DepartmentDto.class));
 
 		employeeDto.setProject(this.modelMapper.map(projectEntity, ProjectDto.class));
-		EmployeeEntity employeeEntity = this.employeeDetailsRepo.save(this.employeeDtoToEntity(employeeDto));
+		EmployeeEntity employeeEntity = this.employeeRepository.save(this.employeeDtoToEntity(employeeDto));
 
 		return this.employeeEntityToDto(employeeEntity);
 	}
 
 	@Override
 	public List<EmployeeDto> getAllEmployeeDetails() {
-		List<EmployeeEntity> employeeRecords = this.employeeDetailsRepo.findAll();
+		List<EmployeeEntity> employeeRecords = this.employeeRepository.findAll();
 		List<EmployeeDto> employeeRecordsDto = employeeRecords.stream()
 				.map(employees -> this.employeeEntityToDto(employees)).collect(Collectors.toList());
 		return employeeRecordsDto;
@@ -59,14 +59,14 @@ public class EmployeeServiceImplementation implements EmployeeService {
 
 	@Override
 	public EmployeeDto getEmployeeDetailsById(int employeeId) {
-		EmployeeEntity employeeRecord = this.employeeDetailsRepo.findById(employeeId)
+		EmployeeEntity employeeRecord = this.employeeRepository.findById(employeeId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee", "EmployeeId", employeeId));
 		return this.employeeEntityToDto(employeeRecord);
 	}
 
 	@Override
 	public EmployeeDto updateEmployeeDetailsById(EmployeeDto employee, int employeeId) {
-		EmployeeEntity employeeRecord = this.employeeDetailsRepo.findById(employeeId)
+		EmployeeEntity employeeRecord = this.employeeRepository.findById(employeeId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee", "EmployeeId", employeeId));
 		employeeRecord.setEmployeeId(employee.getEmployeeId());
 		employeeRecord.setEmployeeFirstName(employee.getEmployeeFirstName());
@@ -77,15 +77,15 @@ public class EmployeeServiceImplementation implements EmployeeService {
 		employeeRecord.setEmployeeBloodGroup(employee.getEmployeeBloodGroup());
 		employeeRecord.setEmployeeDesignation(employee.getEmployeeDesignation());
 		employeeRecord.setEmployeeSalary(employee.getEmployeeSalary());
-		EmployeeEntity savedEmployeeRecord = this.employeeDetailsRepo.save(employeeRecord);
+		EmployeeEntity savedEmployeeRecord = this.employeeRepository.save(employeeRecord);
 		return this.employeeEntityToDto(savedEmployeeRecord);
 	}
 
 	@Override
 	public void deleteEmployeeDetailsById(int employeeId) {
-		EmployeeEntity employeeRecord = this.employeeDetailsRepo.findById(employeeId)
+		EmployeeEntity employeeRecord = this.employeeRepository.findById(employeeId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee", "EmployeeId", employeeId));
-		this.employeeDetailsRepo.delete(employeeRecord);
+		this.employeeRepository.delete(employeeRecord);
 
 	}
 
@@ -101,7 +101,7 @@ public class EmployeeServiceImplementation implements EmployeeService {
 	@Override
 	public List<EmployeeDto> getAllEmployeeByDept(int departmentId) {
 		
-		List<EmployeeEntity> employeeDetailsEntity = this.employeeDetailsRepo.getEmployeeByDepartmentId(departmentId);
+		List<EmployeeEntity> employeeDetailsEntity = this.employeeRepository.getEmployeeByDepartmentId(departmentId);
 System.out.println("List of Employee....."+employeeDetailsEntity);
 //		DepartmentEntity deptEntity = this.employeeDeptRepository.findById(departmentId);
 //				.orElseThrow(() -> new ResourceNotFoundException("Department", "DepartmentId", departmentId));
@@ -116,7 +116,7 @@ System.out.println("List of Employee....."+employeeDetailsEntity);
 	public List<EmployeeDto> getAllEmployeeByProject(int projectId) {
 		ProjectEntity projectEntity = this.projectRepo.findById(projectId)
 				.orElseThrow(() -> new ResourceNotFoundException("Project", "ProjectId", projectId));
-		List<EmployeeEntity> employeeEntity = this.employeeDetailsRepo.findByProject(projectEntity);
+		List<EmployeeEntity> employeeEntity = this.employeeRepository.findByProject(projectEntity);
 		List<EmployeeDto> employeeDto = employeeEntity.stream()
 				.map(employees -> this.employeeEntityToDto(employees)).collect(Collectors.toList());
 		return employeeDto;
